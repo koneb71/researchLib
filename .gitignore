@@ -1,0 +1,5 @@
+*.pyc
+*.pdf
+venv/
+.idea/
+db.sqlite3

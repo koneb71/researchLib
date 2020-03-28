@@ -1,0 +1,6 @@
+Django==3.0.4
+django-uuid-upload-path==1.0.0
+django-versatileimagefield==2.0
+python-magic==0.4.15
+python-magic-bin==0.4.14
+Pillow==7.0.0
