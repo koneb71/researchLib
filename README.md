@@ -1,7 +1,21 @@
 # research lib
 This app will be submitted to MSU-IIT: College of Computer Studies department
 
-Features:
+### Setup
+
+Prerequisite
+ - Python 3.7 or later
+
+Install Requirements
+`pip install -r requirements.txt`
+
+Setup Database
+`python manage.py migrate`
+
+Run
+`python manage.py runserver`
+
+### Features:
 - ~~Google OAUTH2~~
 - ~~Post Research Paper~~
 - Full Text Search
