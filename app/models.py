@@ -2,6 +2,7 @@ import datetime
 import uuid
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -142,16 +143,16 @@ class Files(BaseModel):
 
 
 class Documents(BaseModel):
-    name = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255, unique=True)
     short_description = models.TextField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    content = models.TextField(null=True, blank=True)
     abstract = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to=upload_to, validators=[validate_file_extension], null=True, blank=True)
     authors = models.CharField(max_length=255, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.DO_NOTHING, null=True, blank=True)
-    images = models.ManyToManyField(Images, null=True, blank=True)
-    files = models.ManyToManyField(Files, null=True, blank=True)
-    tags = models.ManyToManyField('Tags', null=True, blank=True)
+    images = models.ManyToManyField(Images)
+    additional_files = models.ManyToManyField(Files)
+    tags = models.ManyToManyField('Tags')
     is_published = models.BooleanField(default=False)
 
     # created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
@@ -161,7 +162,7 @@ class Documents(BaseModel):
         verbose_name_plural = 'Documents'
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Tags(BaseModel):

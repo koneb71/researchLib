@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from app import urls as app_urls
 
+from app.views import logout_user
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('social_django.urls', namespace='social')),
+    path('logout/', logout_user, name='logout'),
     path('', include(app_urls))
 ]

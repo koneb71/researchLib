@@ -9,13 +9,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/theme.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
     {% block extra_css %}{% endblock %}
 
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-2">
-    <a class="navbar-brand ng-binding" href="#">Light text on bg-primary</a>
+    <a class="navbar-brand ng-binding" href="{% url 'index' %}">Research Lib</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
             aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,28 +24,124 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#" title="Current breakpoint tier">
-                    Tier
-                    <span class="d-xl-inline d-none">XL</span>
-                    <span class="d-lg-inline d-xl-none d-none">LG</span>
-                    <span class="d-md-inline d-lg-none d-none">MD</span>
-                    <span class="d-sm-inline d-md-none d-none">SM</span>
-                    <span class="d-inline d-sm-none">XS</span>
-                </a>
+                <a class="nav-link" href="{% url 'post_research' %}">Post Research</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+                {% endif %}
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    {% block content %}{% endblock %}
+    <div class="row">
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-3">
+            <!-- Search Widget -->
+            <div class="card my-2">
+                <div class="card-body">
+                    <h5 class="card-title">Search</h5>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                <button class="btn btn-sm btn-primary" type="button">Go!</button>
+              </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colleges Widget -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h5 class="card-title">Colleges</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">HTML</a>
+                                </li>
+                                <li>
+                                    <a href="#">Freebies</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">JavaScript</a>
+                                </li>
+                                <li>
+                                    <a href="#">CSS</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tutorials</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Widget -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h5 class="card-title">Department</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">HTML</a>
+                                </li>
+                                <li>
+                                    <a href="#">Freebies</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">JavaScript</a>
+                                </li>
+                                <li>
+                                    <a href="#">CSS</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tutorials</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <div class="card-body">
+                    <h5 class="card-title">Side Widget</h5>
+                    You can put anything you want inside of these side widgets. They are easy to use, and feature the
+                    new Bootstrap 4 card containers!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-3 bg-primary">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; ResearchLib 2020</p>
     </div>

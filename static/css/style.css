@@ -1,0 +1,25 @@
+p {
+    font-size: 12px;
+}
+
+a {
+    font-size: 12px;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input, select {
+    height: 2rem !important;
+    font-size: 12px !important;
+}
+
+textarea {
+    font-size: 12px !important;
+}
+
+.card-body {
+    font-size: 12px;
+}
