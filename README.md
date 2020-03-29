@@ -20,6 +20,7 @@ Run
 - ~~Post Research Paper~~
 - WYSIWYG editor
 - PDF viewer
+- Research Tags
 - Full Text Search
 - Auto detect Research paper's images
 - Recommendation system
