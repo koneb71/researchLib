@@ -18,7 +18,7 @@ Run
 ### Features:
 - ~~Google OAUTH2~~
 - ~~Post Research Paper~~
-- WYSIWYG editor
+- ~~WYSIWYG editor~~
 - PDF viewer
 - Research Tags
 - Full Text Search
