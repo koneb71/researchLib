@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Post Research
+{% endblock %}
+
+{% block extra_css %}
+    {{ form.media }}
 {% endblock %}
 
 {% block content %}
@@ -28,6 +33,10 @@
                     <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author">
                 </div>
                 <div class="form-group">
+                    <label for="content">Content</label>
+                    {{ form.content }}
+                </div>
+                <div class="form-group">
                     <label for="file">Upload File</label>
                     <input type="file" class="form-control-file" id="file" name="file">
                 </div>
@@ -42,4 +51,12 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    tinyMCE.init({
+      selector: "#id_content"
+    });
+</script>
 {% endblock %}

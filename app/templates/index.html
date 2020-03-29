@@ -5,14 +5,22 @@
     Home
 {% endblock %}
 
+{% block extra_css %}
+    <style>
+        .card-title a{
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     {% for item in papers %}
     <div class="card mt-2">
         <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
+            <h5 class="card-title"><a href="{% url 'view_research' item.id %}">{{ item.title }}</a></h5>
             <hr>
             <p class="card-text">{{ item.short_description }}</p>
-            <p class="card-text"><small class="text-muted">Posted {{ item.date_created | naturaltime }}</small></p>
+            <p class="card-text"><small class="text-muted">Posted by {{ item.created_by.first_name }} {{ item.created_by.last_name }} | {{ item.date_created | naturaltime }}</small></p>
         </div>
     </div>
     {% endfor %}

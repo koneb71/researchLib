@@ -1,24 +1,19 @@
-import datetime
 import uuid
 
 from django.conf import settings
+from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
-from django.utils.crypto import get_random_string
 from PIL import Image as Img
 from io import BytesIO
 
+from tinymce.models import HTMLField
 from versatileimagefield.fields import VersatileImageField, PPOIField
 from uuid_upload_path import upload_to
 
 from app.validators import validate_file_extension
 
-
-def generate_filename():
-    uid = get_random_string(length=16, allowed_chars=u'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-    date = datetime.datetime.now()
-    return '%s-%s-%s_%s' % (date.year, date.month, date.day, uid)
 
 
 def compress_image(image_object, image_quality=settings.IMAGE_QUALITY):
@@ -68,7 +63,6 @@ class ImageMixin(models.Model):
 
 
 class BaseModel(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
@@ -146,16 +140,15 @@ class Documents(BaseModel):
     title = models.CharField(max_length=255, unique=True)
     short_description = models.TextField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
-    abstract = models.TextField(null=True, blank=True)
+    abstract = HTMLField(null=True, blank=True)
     file = models.FileField(upload_to=upload_to, validators=[validate_file_extension], null=True, blank=True)
     authors = models.CharField(max_length=255, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.DO_NOTHING, null=True, blank=True)
-    images = models.ManyToManyField(Images)
-    additional_files = models.ManyToManyField(Files)
-    tags = models.ManyToManyField('Tags')
+    images = models.ManyToManyField(Images, null=True, blank=True)
+    additional_files = models.ManyToManyField(Files, null=True, blank=True)
+    tags = models.ManyToManyField('Tags', null=True, blank=True)
     is_published = models.BooleanField(default=False)
-
-    # created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Document'

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'app',
     'social_django',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -134,10 +135,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static"),
 ]
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
 
 IMAGE_QUALITY = 70
 IMAGE_WIDTH_REDUCE = 0.10
@@ -205,5 +208,14 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
         ('thumbnail_medium2', 'thumbnail__600x600'),
         ('thumbnail_medium', 'thumbnail__800x800')
     ],
+}
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tinymce")
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "silver",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
 }

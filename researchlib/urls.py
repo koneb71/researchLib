@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('social_django.urls', namespace='social')),
     path('logout/', logout_user, name='logout'),
-    path('', include(app_urls))
+    path('', include(app_urls)),
+    path('tinymce/', include('tinymce.urls')),
 ]
