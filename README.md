@@ -19,6 +19,7 @@ Run
 - ~~Google OAUTH2~~
 - ~~Post Research Paper~~
 - WYSIWYG editor
+- PDF viewer
 - Full Text Search
 - Auto detect Research paper's images
 - Recommendation system
