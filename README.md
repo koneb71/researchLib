@@ -7,13 +7,13 @@ Prerequisite
  - Python 3.7 or later
 
 Install Requirements
-`pip install -r requirements.txt`
+```pip install -r requirements.txt```
 
 Setup Database
-`python manage.py migrate`
+```python manage.py migrate```
 
 Run
-`python manage.py runserver`
+```python manage.py runserver```
 
 ### Features:
 - ~~Google OAUTH2~~
