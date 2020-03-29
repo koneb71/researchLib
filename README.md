@@ -1,5 +1,5 @@
 # research lib
-This app will be submitted to MSU-IIT: College of Computer Studies department
+This app will be submitted to MSU-IIT: College of Computer Studies - Computer Science department
 
 ### Setup
 
