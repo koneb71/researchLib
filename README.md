@@ -18,6 +18,7 @@ Run
 ### Features:
 - ~~Google OAUTH2~~
 - ~~Post Research Paper~~
+- WYSIWYG editor
 - Full Text Search
 - Auto detect Research paper's images
 - Recommendation system
