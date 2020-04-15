@@ -25,7 +25,7 @@ SECRET_KEY = 'c&c-@@98zji$p2&jn&c2rdh@4(&m0y46u05y6qat0uyf^m36im'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -171,6 +171,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "static"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
