@@ -1,10 +1,28 @@
-{% extends 'base.html' %}
+{% extends 'base-no-container.html' %}
 {% load humanize %}
 
 {% block title %}
-    {{ title }} | ResearchLib
+    {{ item.title }} | ResearchLib
 {% endblock %}
 
 {% block content %}
-
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h4>{{ item.title }}</h4>
+            <p class="font-weight-bold pt-2">Authors: {{ item.authors }} <span class="float-right">Published: {{ item.date_created }}</span></p>
+            <hr>
+            <p class="font-weight-bold">Short Description</p>
+            <p>{{ item.short_description }}</p>
+            <hr>
+            <p class="font-weight-bold">Abstract</p>
+            <p>{{ item.abstract|safe }}</p>
+            <hr>
+            <p class="font-weight-bold">More Information</p>
+            {{ item.content|safe }}
+        </div>
+        <div class="col-md-6">
+            <iframe src="{% url 'send_pdf' id=item.pk %}" width="100%" height="100%"
+            type="application/pdf"></iframe>
+        </div>
+    </div>
 {% endblock %}

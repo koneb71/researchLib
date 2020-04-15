@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-no-side-widget.html' %}
 {% load static %}
 
 {% block title %}
@@ -6,31 +6,41 @@
 {% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
     {{ form.media }}
 {% endblock %}
 
 {% block content %}
-    <div class="card mt-2 mb-4">
+    <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title">Post Research</h5>
             <hr>
             <form enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <div class="form-group">
+                    <label for="title">Publication Type</label>
+                    <select class="form-control" name="publish_type" id="publish_type">
+                        <option value="" selected>Select your publication type</option>
+                        {% for pub_type in publication_types %}
+                            <option value="{{ pub_type.pk }}">{{ pub_type.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
                 </div>
                 <div class="form-group">
                     <label for="short_description">Short Description</label>
-                    <textarea class="form-control" id="short_description" name="short_description" rows="3"></textarea>
+                    <textarea class="form-control" id="short_description" name="short_description" rows="5"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="abstract">Abstract</label>
-                    <textarea class="form-control" id="abstract" name="abstract" rows="4"></textarea>
+                    <textarea class="form-control" id="abstract" name="abstract" rows="6"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="author">Author</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author">
+                    <input type="text" class="form-control" id="authors" name="authors" placeholder="Enter Author">
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
@@ -47,6 +57,8 @@
                         <option value="0">No</option>
                     </select>
                 </div>
+
+                <input name="created_by" value="{{ user.pk }}" hidden>
                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
             </form>
         </div>
@@ -54,9 +66,19 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    tinyMCE.init({
-      selector: "#id_content"
-    });
-</script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+
+    <script>
+        tinyMCE.init({
+          selector: "#id_content"
+        });
+
+        $('.js-data-example-ajax').select2({
+          ajax: {
+            url: 'https://api.github.com/search/repositories',
+            dataType: 'json'
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+          }
+        });
+    </script>
 {% endblock %}

@@ -5,23 +5,22 @@
     Home
 {% endblock %}
 
-{% block extra_css %}
-    <style>
-        .card-title a{
-            text-decoration: none;
-        }
-    </style>
-{% endblock %}
-
 {% block content %}
+    {% if papers %}
     {% for item in papers %}
-    <div class="card mt-2">
+    <div class="card mb-4">
         <div class="card-body">
-            <h5 class="card-title"><a href="{% url 'view_research' item.id %}">{{ item.title }}</a></h5>
+            <h5><img class="rounded-circle mr-2" style="width: 35px; height: 35px" src="{{ item.created_by.profile_photo }}">{{ item.created_by.first_name }} {{ item.created_by.last_name }}</h5>
             <hr>
+            <h5 class="card-title"><a href="{% url 'view_research' item.id %}">{{ item.title }}</a></h5>
             <p class="card-text">{{ item.short_description }}</p>
             <p class="card-text"><small class="text-muted">Posted by {{ item.created_by.first_name }} {{ item.created_by.last_name }} | {{ item.date_created | naturaltime }}</small></p>
         </div>
     </div>
     {% endfor %}
+    {% else %}
+        <hr>
+        <h3 class="text-center text-muted">No Post yet</h3>
+        <hr>
+    {% endif %}
 {% endblock %}

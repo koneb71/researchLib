@@ -1,19 +1,24 @@
 import uuid
 
 from django.conf import settings
-from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from PIL import Image as Img
 from io import BytesIO
 
-from tinymce.models import HTMLField
 from versatileimagefield.fields import VersatileImageField, PPOIField
 from uuid_upload_path import upload_to
 
 from app.validators import validate_file_extension
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name='profile_photo', on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to='media/profiles')
+
+    def __str__(self):
+        return self.profile_photo.url
 
 
 def compress_image(image_object, image_quality=settings.IMAGE_QUALITY):
@@ -136,18 +141,22 @@ class Files(BaseModel):
         return self.name
 
 
+class PublicationType(BaseModel):
+    name = models.CharField(max_length=255)
+
+
 class Documents(BaseModel):
-    title = models.CharField(max_length=255, unique=True)
+    title = models.CharField(max_length=255)
     short_description = models.TextField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
-    abstract = HTMLField(null=True, blank=True)
+    abstract = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to=upload_to, validators=[validate_file_extension], null=True, blank=True)
     authors = models.CharField(max_length=255, null=True, blank=True)
     department = models.ForeignKey(Departments, on_delete=models.DO_NOTHING, null=True, blank=True)
     images = models.ManyToManyField(Images, null=True, blank=True)
     additional_files = models.ManyToManyField(Files, null=True, blank=True)
     tags = models.ManyToManyField('Tags', null=True, blank=True)
-    is_published = models.BooleanField(default=False)
+    publish_type = models.ForeignKey(PublicationType, on_delete=models.DO_NOTHING)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
@@ -159,11 +168,11 @@ class Documents(BaseModel):
 
 
 class Tags(BaseModel):
-    text = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
 
     class Meta:
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
 
     def __str__(self):
-        return self.text
+        return self.name

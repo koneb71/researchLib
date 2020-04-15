@@ -3,24 +3,32 @@ This app will be submitted to MSU-IIT: College of Computer Studies - Computer Sc
 
 ### Setup
 
-Prerequisite
+**Prerequisite**
  - Python 3.7 or later
 
-Install Requirements
+**Install Requirements**
+
 ```pip install -r requirements.txt```
 
-Setup Database
+**Setup Database**
+
 ```python manage.py migrate```
 
-Run
+**Pre Populate Database**
+
+```python manage.py prepopulate_db```
+
+**Run**
+
 ```python manage.py runserver```
 
 ### Features:
 - ~~Google OAUTH2~~
 - ~~Post Research Paper~~
 - ~~WYSIWYG editor~~
-- PDF viewer
+- ~~PDF viewer~~
+- Abstract and Images Detection in PDF
 - Research Tags
 - Full Text Search
-- Auto detect Research paper's images
+- Collaborative Filtering
 - Recommendation system

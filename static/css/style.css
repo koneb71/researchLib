@@ -23,3 +23,7 @@ textarea {
 .card-body {
     font-size: 12px;
 }
+
+.card-title a {
+    text-decoration: none;
+}
