@@ -50,14 +50,6 @@
                     <label for="file">Upload File</label>
                     <input type="file" class="form-control-file" id="file" name="file">
                 </div>
-                <div class="form-group">
-                    <label for="is_published">Publish Research</label>
-                    <select id="is_published" name="is_published" class="form-control" style="width: 10%">
-                        <option value="1" selected>Yes</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
                 <input name="created_by" value="{{ user.pk }}" hidden>
                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
             </form>

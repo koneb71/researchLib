@@ -23,7 +23,7 @@ def post_research(request):
     form = PostDocumentForm(request.POST, request.FILES)
     if request.method == 'POST' and form.is_valid():
         form.save()
-        return redirect(reverse('view_research', kwargs={'id': form.pk}))
+        return redirect(reverse('index'))
 
     publication_types = PublicationType.objects.all()
     return render(request, 'post.html', {'form': form, 'publication_types': publication_types})
@@ -36,8 +36,6 @@ def view_research(request, id):
 
 def send_pdf(request, id):
     item = get_object_or_404(Documents, pk=id)
-    print(item.file.path)
-    print(item.file.name)
     with open(item.file.path, 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         return response
