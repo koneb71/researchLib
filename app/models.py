@@ -15,7 +15,7 @@ from app.validators import validate_file_extension
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile_photo', on_delete=models.CASCADE)
-    profile_photo = models.ImageField(upload_to='media/profiles')
+    profile_photo = models.ImageField(upload_to='media/profiles', null=True, blank=True)
 
     def __str__(self):
         return self.profile_photo.url
