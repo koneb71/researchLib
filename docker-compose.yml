@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+version: '1'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: NGINX
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+      - ./config:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - web
+  web:
+    build: .
+    container_name: APP
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+      - ./static:/static
+    expose:
+      - "8000"
+    links:
+      - redis
+  db:
+    image: postgres:alpine
+    container_name: DB
+  redis:
+    image: redis:alpine
+    container_name: REDIS
+    ports:
+      - '6379:6379'

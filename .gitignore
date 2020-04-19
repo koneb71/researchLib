@@ -4,3 +4,6 @@ venv/
 .idea/
 db.sqlite3
 media/
+.vscode
+.DS_Store
+.env
