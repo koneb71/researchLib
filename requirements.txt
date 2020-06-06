@@ -1,4 +1,4 @@
-Django==3.0.4
+Django==3.0.7
 django-uuid-upload-path==1.0.0
 django-versatileimagefield==2.0
 python-magic==0.4.15
